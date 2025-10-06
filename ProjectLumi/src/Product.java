@@ -53,8 +53,11 @@ public class Product {
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-    public void setImagesList(ArrayList<String> imagesList) {
-        this.imagesList = imagesList;
+    public void addImagen(String rutaImagen) {
+        if (this.imagesList == null) {
+        this.imagesList = new ArrayList<>();
+        }
+        this.imagesList.add(rutaImagen);
     }
 
     @Override

@@ -79,17 +79,21 @@ public class LinkedList {
     }
 
     public void displayList() {
-        if (head == null) {
-            System.out.println("The list is empty.");
-            return;
-        }
+    if (head == null) {
+        System.out.println("The list is empty.");
+        return;
+    }
 
-        ProductNode current = head;
-        while (current != null) {
-            System.out.println(current);
-            current = current.getNext();
-        }
+    ProductNode current = head;
+    int index = 1;
+    System.out.println("Products List");
+
+    while (current != null) {
+        System.out.println(index + ". " + current.getProduct());
+        current = current.getNext();
+        index++;
     }
 }
-//primera prueba
+}
+
 
