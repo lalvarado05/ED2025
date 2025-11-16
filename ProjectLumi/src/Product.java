@@ -8,6 +8,7 @@ public class Product {
     int quantity;
     Date expirationDate;
     ArrayList<String> imagesList;
+    Product next; // Enlace al siguiente nodo en la lista enlazada
 
     public Product(String name, double price, String category, int quantity, Date expirationDate, ArrayList<String> imagesList) {
         this.name = name;
@@ -16,6 +17,7 @@ public class Product {
         this.quantity = quantity;
         this.expirationDate = expirationDate;
         this.imagesList = imagesList;
+        this.next = null;
     }
 
     // Getters and Setters
@@ -58,6 +60,15 @@ public class Product {
         this.imagesList = new ArrayList<>();
         }
         this.imagesList.add(rutaImagen);
+    }
+
+    // Getters y Setters para el enlace next
+    public Product getNext() {
+        return next;
+    }
+
+    public void setNext(Product next) {
+        this.next = next;
     }
 
     @Override

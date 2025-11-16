@@ -69,7 +69,7 @@ public class App {
     }
 
     // Método para crear un producto
-private static ProductNode crearProducto(Scanner sc) {
+private static Product crearProducto(Scanner sc) {
     System.out.print("Ingrese nombre: ");
     String nombre = sc.nextLine();
     System.out.print("Ingrese precio: ");
@@ -98,27 +98,27 @@ private static ProductNode crearProducto(Scanner sc) {
     
     // Mensaje de confirmación
     System.out.println("✅ Producto '" + nombre + "' creado exitosamente!");
-    return new ProductNode(producto);
+    return producto;
 }
   // Método para añadir imagen a producto
 private static void añadirImagenProducto(Scanner sc, LinkedList lista) {
     System.out.print("Ingrese el nombre del producto: ");
     String nombreImg = sc.nextLine();
-    ProductNode nodoImg = lista.searchByName(nombreImg);
+    Product productoImg = lista.searchByName(nombreImg);
     
-        if (nodoImg != null) {
+        if (productoImg != null) {
             System.out.print("Ingrese la ruta de la nueva imagen: ");
             String rutaImg = sc.nextLine();
-            nodoImg.getProduct().addImagen(rutaImg);
+            productoImg.addImagen(rutaImg);
             System.out.println("✅ Imagen añadida correctamente al producto '" + nombreImg + "'.");
             }
         }
 private static void modificarProducto(Scanner sc, LinkedList lista) {
     System.out.print("Ingrese el nombre del producto a modificar: ");
     String nombreModificar = sc.nextLine();
-    ProductNode nodoMod = lista.searchByName(nombreModificar);
+    Product productoMod = lista.searchByName(nombreModificar);
     
-        if (nodoMod != null) {
+        if (productoMod != null) {
             System.out.print("Nuevo nombre: ");
             String nuevoNombre = sc.nextLine();
             System.out.print("Nuevo precio: ");
@@ -130,10 +130,10 @@ private static void modificarProducto(Scanner sc, LinkedList lista) {
             int nuevaCantidad = sc.nextInt();
             sc.nextLine();
 
-            nodoMod.getProduct().setName(nuevoNombre);
-            nodoMod.getProduct().setPrice(nuevoPrecio);
-            nodoMod.getProduct().setCategory(nuevaCategoria);
-            nodoMod.getProduct().setQuantity(nuevaCantidad);
+            productoMod.setName(nuevoNombre);
+            productoMod.setPrice(nuevoPrecio);
+            productoMod.setCategory(nuevaCategoria);
+            productoMod.setQuantity(nuevaCantidad);
 
             System.out.println("Producto actualizado correctamente.");
         }
