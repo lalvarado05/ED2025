@@ -41,7 +41,7 @@ public class LinkedList {
         Product current = head;
         while (current != null) {
             if (current.getName().equals(name)) {
-                System.out.println("Product found:\n" + current);
+                System.out.println("Product found:\n" + current.toString());
                 return current;
             }
             current = current.getNext();
@@ -94,6 +94,16 @@ public class LinkedList {
         index++;
     }
 }
+
+    public double getTotalCost() {
+        double totalCost = 0.0;
+        Product current = head;
+        while (current != null) {
+            totalCost += current.getPrice() * current.getQuantity();
+            current = current.getNext();
+        }
+        return totalCost;
+    }
 }
 
 

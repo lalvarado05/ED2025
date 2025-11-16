@@ -56,6 +56,15 @@ public class App {
                     añadirImagenProducto(sc, listaProductos);
                     break;
 
+                case 8:
+                    double costoTotal = listaProductos.getTotalCost();
+                    System.out.println("═══════════════════════════════════════");
+                    System.out.println("Reporte de Costos Totales");
+                    System.out.println("═══════════════════════════════════════");
+                    System.out.println("Costo total de todos los productos: $" + String.format("%.2f", costoTotal));
+                    System.out.println("═══════════════════════════════════════");
+                    break;
+
                 case 0:
                     System.out.println("Saliendo del sistema...");
                     break;
@@ -97,7 +106,7 @@ private static Product crearProducto(Scanner sc) {
     Product producto = new Product(nombre, precio, categoria, cantidad, fechaVencimiento, imagenes);
     
     // Mensaje de confirmación
-    System.out.println("✅ Producto '" + nombre + "' creado exitosamente!");
+    System.out.println("Producto '" + nombre + "' creado exitosamente!");
     return producto;
 }
   // Método para añadir imagen a producto
@@ -110,7 +119,7 @@ private static void añadirImagenProducto(Scanner sc, LinkedList lista) {
             System.out.print("Ingrese la ruta de la nueva imagen: ");
             String rutaImg = sc.nextLine();
             productoImg.addImagen(rutaImg);
-            System.out.println("✅ Imagen añadida correctamente al producto '" + nombreImg + "'.");
+            System.out.println("Imagen añadida correctamente al producto '" + nombreImg + "'.");
             }
         }
 private static void modificarProducto(Scanner sc, LinkedList lista) {
