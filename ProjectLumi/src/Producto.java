@@ -9,6 +9,8 @@ public class Product {
     Date expirationDate;
     ArrayList<String> imagesList;
     Product next; // Enlace al siguiente nodo en la lista enlazada
+    Product izquierdo; // Enlace al hijo izquierdo en el árbol binario
+    Product derecho; // Enlace al hijo derecho en el árbol binario
 
     public Product(String name, double price, String category, int quantity, Date expirationDate, ArrayList<String> imagesList) {
         this.name = name;
@@ -18,6 +20,8 @@ public class Product {
         this.expirationDate = expirationDate;
         this.imagesList = imagesList;
         this.next = null;
+        this.izquierdo = null;
+        this.derecho = null;
     }
 
     // Getters and Setters
@@ -62,13 +66,30 @@ public class Product {
         this.imagesList.add(rutaImagen);
     }
 
-    // Getters y Setters para el enlace next
+    // Getters y Setters para el enlace next (lista enlazada)
     public Product getNext() {
         return next;
     }
 
     public void setNext(Product next) {
         this.next = next;
+    }
+
+    // Getters y Setters para los enlaces del árbol binario
+    public Product getIzquierdo() {
+        return izquierdo;
+    }
+
+    public void setIzquierdo(Product izquierdo) {
+        this.izquierdo = izquierdo;
+    }
+
+    public Product getDerecho() {
+        return derecho;
+    }
+
+    public void setDerecho(Product derecho) {
+        this.derecho = derecho;
     }
 
     @Override
