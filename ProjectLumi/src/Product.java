@@ -73,7 +73,7 @@ public class Product {
 
     @Override
     public String toString() {
-1        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(name).append("\n");
         sb.append("Precio: $").append(String.format("%.2f", price)).append("\n");
         sb.append("Categoría: ").append(category).append("\n");

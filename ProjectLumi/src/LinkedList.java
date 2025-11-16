@@ -41,24 +41,24 @@ public class LinkedList {
         Product current = head;
         while (current != null) {
             if (current.getName().equals(name)) {
-                System.out.println("Product found:\n" + current.toString());
+                System.out.println("Producto encontrado:\n" + current.toString());
                 return current;
             }
             current = current.getNext();
         }
-        System.out.println("Product with name " + name + " not found.");
+        System.out.println("Producto con nombre '" + name + "' no encontrado.");
         return null;
     }
 
     public void deleteByName(String name) {
         if (head == null) {
-            System.out.println("The list is empty.");
+            System.out.println("La lista está vacía.");
             return;
         }
 
         if (head.getName().equals(name)) {
             head = head.getNext();
-            System.out.println("Product with name " + name + " deleted.");
+            System.out.println("Producto con nombre '" + name + "' eliminado.");
             return;
         }
 
@@ -71,22 +71,22 @@ public class LinkedList {
         }
 
         if (current == null) {
-            System.out.println("Product with name " + name + " not found.");
+            System.out.println("Producto con nombre '" + name + "' no encontrado.");
         } else {
             previous.setNext(current.getNext());
-            System.out.println("Product with name " + name + " deleted.");
+            System.out.println("Producto con nombre '" + name + "' eliminado.");
         }
     }
 
     public void displayList() {
     if (head == null) {
-        System.out.println("The list is empty.");
+        System.out.println("La lista está vacía.");
         return;
     }
 
     Product current = head;
     int index = 1;
-    System.out.println("Products List");
+    System.out.println("Lista de Productos");
 
     while (current != null) {
         System.out.println(index + ". " + current);
