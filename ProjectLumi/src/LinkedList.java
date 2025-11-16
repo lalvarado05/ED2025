@@ -1,6 +1,6 @@
 public class LinkedList {
 
-    private ProductNode head;
+    private Product head;
 
 
     // Constructor
@@ -9,14 +9,14 @@ public class LinkedList {
     }
 
     //Getters y Setters
-    public ProductNode getHead() {
+    public Product getHead() {
         return head;
     }
-    public void setHead(ProductNode head) {
+    public void setHead(Product head) {
         this.head = head;
     }
 
-    public void addToStart(ProductNode newNode) {
+    public void addToStart(Product newNode) {
         if (head == null) {
             setHead(newNode);
         } else {
@@ -25,11 +25,11 @@ public class LinkedList {
         }
     }
 
-    public void addToEnd(ProductNode newNode) {
+    public void addToEnd(Product newNode) {
         if (head == null) {
             setHead(newNode);
         } else {
-            ProductNode current = head;
+            Product current = head;
             while (current.getNext() != null) {
                 current = current.getNext();
             }
@@ -37,63 +37,73 @@ public class LinkedList {
         }
     }
 
-    public ProductNode searchByName(String name) {
-        ProductNode current = head;
+    public Product searchByName(String name) {
+        Product current = head;
         while (current != null) {
-            if (current.getProduct().getName().equals(name)) {
-                System.out.println("Product found:\n" + current);
+            if (current.getName().equals(name)) {
+                System.out.println("Producto encontrado:\n" + current.toString());
                 return current;
             }
             current = current.getNext();
         }
-        System.out.println("Product with name " + name + " not found.");
+        System.out.println("Producto con nombre '" + name + "' no encontrado.");
         return null;
     }
 
     public void deleteByName(String name) {
         if (head == null) {
-            System.out.println("The list is empty.");
+            System.out.println("La lista está vacía.");
             return;
         }
 
-        if (head.getProduct().getName().equals(name)) {
+        if (head.getName().equals(name)) {
             head = head.getNext();
-            System.out.println("Product with name " + name + " deleted.");
+            System.out.println("Producto con nombre '" + name + "' eliminado.");
             return;
         }
 
-        ProductNode current = head;
-        ProductNode previous = null;
+        Product current = head;
+        Product previous = null;
 
-        while (current != null && !current.getProduct().getName().equals(name)) {
+        while (current != null && !current.getName().equals(name)) {
             previous = current;
             current = current.getNext();
         }
 
         if (current == null) {
-            System.out.println("Product with name " + name + " not found.");
+            System.out.println("Producto con nombre '" + name + "' no encontrado.");
         } else {
             previous.setNext(current.getNext());
-            System.out.println("Product with name " + name + " deleted.");
+            System.out.println("Producto con nombre '" + name + "' eliminado.");
         }
     }
 
     public void displayList() {
     if (head == null) {
-        System.out.println("The list is empty.");
+        System.out.println("La lista está vacía.");
         return;
     }
 
-    ProductNode current = head;
+    Product current = head;
     int index = 1;
-    System.out.println("Products List");
+    System.out.println("Lista de Productos");
 
     while (current != null) {
-        System.out.println(index + ". " + current.getProduct());
+        System.out.println(index + ". " + current);
         current = current.getNext();
         index++;
     }
 }
+
+    public double getTotalCost() {
+        double totalCost = 0.0;
+        Product current = head;
+        while (current != null) {
+            totalCost += current.getPrice() * current.getQuantity();
+            current = current.getNext();
+        }
+        return totalCost;
+    }
 }
 
 
