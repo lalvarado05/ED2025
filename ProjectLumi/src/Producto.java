@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.sql.Date;
 
-public class Product {
+public class Producto {
     String name;
     double price;
     String category;
     int quantity;
     Date expirationDate;
     ArrayList<String> imagesList;
-    Product next; // Enlace al siguiente nodo en la lista enlazada
+    // Le dimos versatibilidad a la clase para que pueda ser usada en diferentes estructuras de datos
+    Producto next; // Enlace al siguiente nodo en la lista enlazada
+    Producto izquierdo; // Enlace al hijo izquierdo en el árbol binario
+    Producto derecho; // Enlace al hijo derecho en el árbol binario
 
-    public Product(String name, double price, String category, int quantity, Date expirationDate, ArrayList<String> imagesList) {
+    public Producto(String name, double price, String category, int quantity, Date expirationDate, ArrayList<String> imagesList) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -18,6 +21,8 @@ public class Product {
         this.expirationDate = expirationDate;
         this.imagesList = imagesList;
         this.next = null;
+        this.izquierdo = null;
+        this.derecho = null;
     }
 
     // Getters and Setters
@@ -62,13 +67,30 @@ public class Product {
         this.imagesList.add(rutaImagen);
     }
 
-    // Getters y Setters para el enlace next
-    public Product getNext() {
+    // Getters y Setters para el enlace next (lista enlazada)
+    public Producto getNext() {
         return next;
     }
 
-    public void setNext(Product next) {
+    public void setNext(Producto next) {
         this.next = next;
+    }
+
+    // Getters y Setters para los enlaces del árbol binario
+    public Producto getIzquierdo() {
+        return izquierdo;
+    }
+
+    public void setIzquierdo(Producto izquierdo) {
+        this.izquierdo = izquierdo;
+    }
+
+    public Producto getDerecho() {
+        return derecho;
+    }
+
+    public void setDerecho(Producto derecho) {
+        this.derecho = derecho;
     }
 
     @Override

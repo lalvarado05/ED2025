@@ -1,22 +1,22 @@
-public class LinkedList {
+public class ListaEnlazadaProductos {
 
-    private Product head;
+    private Producto head;
 
 
     // Constructor
-    public LinkedList() {
+    public ListaEnlazadaProductos() {
         this.head = null;
     }
 
     //Getters y Setters
-    public Product getHead() {
+    public Producto getHead() {
         return head;
     }
-    public void setHead(Product head) {
+    public void setHead(Producto head) {
         this.head = head;
     }
 
-    public void addToStart(Product newNode) {
+    public void addToStart(Producto newNode) {
         if (head == null) {
             setHead(newNode);
         } else {
@@ -25,11 +25,11 @@ public class LinkedList {
         }
     }
 
-    public void addToEnd(Product newNode) {
+    public void addToEnd(Producto newNode) {
         if (head == null) {
             setHead(newNode);
         } else {
-            Product current = head;
+            Producto current = head;
             while (current.getNext() != null) {
                 current = current.getNext();
             }
@@ -37,8 +37,8 @@ public class LinkedList {
         }
     }
 
-    public Product searchByName(String name) {
-        Product current = head;
+    public Producto searchByName(String name) {
+        Producto current = head;
         while (current != null) {
             if (current.getName().equals(name)) {
                 System.out.println("Producto encontrado:\n" + current.toString());
@@ -62,8 +62,8 @@ public class LinkedList {
             return;
         }
 
-        Product current = head;
-        Product previous = null;
+        Producto current = head;
+        Producto previous = null;
 
         while (current != null && !current.getName().equals(name)) {
             previous = current;
@@ -84,7 +84,7 @@ public class LinkedList {
         return;
     }
 
-    Product current = head;
+    Producto current = head;
     int index = 1;
     System.out.println("Lista de Productos");
 
@@ -97,7 +97,7 @@ public class LinkedList {
 
     public double getTotalCost() {
         double totalCost = 0.0;
-        Product current = head;
+        Producto current = head;
         while (current != null) {
             totalCost += current.getPrice() * current.getQuantity();
             current = current.getNext();
