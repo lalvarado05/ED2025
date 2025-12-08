@@ -20,7 +20,7 @@ public class ArbolProductos {
 
         // Comparar por nombre (llave)
         int comparacion = producto.getName().compareToIgnoreCase(nodo.getName());
-        
+
         if (comparacion < 0) {
             nodo.setIzquierdo(insertarRecursivo(nodo.getIzquierdo(), producto));
         } else if (comparacion > 0) {
@@ -31,7 +31,7 @@ public class ArbolProductos {
             // actualizamos la cantidad en vez de crear uno nuevo
             nodo.setQuantity(nodo.getQuantity() + producto.getQuantity());
         }
-        
+
         return nodo;
     }
 
@@ -46,7 +46,7 @@ public class ArbolProductos {
         }
 
         int comparacion = nombre.compareToIgnoreCase(nodo.getName());
-        
+
         if (comparacion == 0) {
             return nodo;
         } else if (comparacion < 0) {
@@ -78,11 +78,11 @@ public class ArbolProductos {
 
         ArrayList<Producto> productos = new ArrayList<>();
         obtenerProductosEnOrden(productos);
-        
+
         System.out.println("═══════════════════════════════════════");
         System.out.println("Inventario de la Tienda");
         System.out.println("═══════════════════════════════════════");
-        
+
         int index = 1;
         for (Producto producto : productos) {
             System.out.println(index + ". " + producto.getName() + 
