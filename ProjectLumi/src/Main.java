@@ -17,7 +17,7 @@ public class Main {
     private static void limpiarConsola() {
         try {
             String sistemaOperativo = System.getProperty("os.name").toLowerCase();
-            
+
             if (sistemaOperativo.contains("windows")) {
                 // Windows
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -47,10 +47,13 @@ public class Main {
             System.out.println("3. Agregar cliente a la cola");
             System.out.println("4. Ver cola de clientes");
             System.out.println("5. Atender siguiente cliente");
+            System.out.println("6. Agregar ubicación al mapa");
+            System.out.println("7. Agregar conexión entre ubicaciones");
+            System.out.println("8. Ver mapa de ubicaciones");
             System.out.println("0. Salir");
             System.out.println("═══════════════════════════════════════");
             System.out.print("Seleccione una opción: ");
-            
+
             try {
                 opcion = sc.nextInt();
                 sc.nextLine(); // Limpiar buffer
@@ -86,6 +89,24 @@ public class Main {
                         System.out.println("\nPresione Enter para continuar...");
                         sc.nextLine();
                         break;
+                    case 6:
+                        limpiarConsola();
+                        agregarUbicacion();
+                        System.out.println("\nPresione Enter para continuar...");
+                        sc.nextLine();
+                        break;
+                    case 7:
+                        limpiarConsola();
+                        agregarConexion();
+                        System.out.println("\nPresione Enter para continuar...");
+                        sc.nextLine();
+                        break;
+                    case 8:
+                        limpiarConsola();
+                        tienda.mostrarGrafoUbicaciones();
+                        System.out.println("\nPresione Enter para continuar...");
+                        sc.nextLine();
+                        break;
                     case 0:
                         limpiarConsola();
                         System.out.println("Saliendo del sistema...");
@@ -110,21 +131,21 @@ public class Main {
         System.out.println("\n═══════════════════════════════════════");
         System.out.println("   AGREGAR PRODUCTO AL INVENTARIO");
         System.out.println("═══════════════════════════════════════");
-        
+
         System.out.print("Ingrese nombre del producto: ");
         String nombre = sc.nextLine();
-        
+
         System.out.print("Ingrese precio: $");
         double precio = sc.nextDouble();
         sc.nextLine();
-        
+
         System.out.print("Ingrese categoría: ");
         String categoria = sc.nextLine();
-        
+
         System.out.print("Ingrese cantidad: ");
         int cantidad = sc.nextInt();
         sc.nextLine();
-        
+
         Date fechaVencimiento = null;
         System.out.print("¿Tiene fecha de vencimiento? (s/n): ");
         String tieneFecha = sc.nextLine();
@@ -137,10 +158,10 @@ public class Main {
                 System.out.println("Fecha inválida. Se establecerá como sin fecha de vencimiento.");
             }
         }
-        
+
         ArrayList<String> imagenes = new ArrayList<>();
         Producto producto = new Producto(nombre, precio, categoria, cantidad, fechaVencimiento, imagenes);
-        
+
         tienda.agregarProductoAlInventario(producto);
     }
 
@@ -149,52 +170,55 @@ public class Main {
         System.out.println("\n═══════════════════════════════════════");
         System.out.println("      AGREGAR CLIENTE A LA COLA");
         System.out.println("═══════════════════════════════════════");
-        
+
         System.out.print("Ingrese nombre del cliente: ");
         String nombreCliente = sc.nextLine();
-        
+
         System.out.println("Seleccione el tipo de cliente:");
         System.out.println("1. Básico");
         System.out.println("2. Afiliado");
         System.out.println("3. Premium");
         System.out.print("Opción: ");
-        
+
         int tipoCliente = sc.nextInt();
         sc.nextLine();
-        
+
         if (tipoCliente < 1 || tipoCliente > 3) {
             System.out.println("Tipo inválido. Se asignará como cliente básico.");
             tipoCliente = 1;
         }
-        
-        Cliente cliente = new Cliente(nombreCliente, tipoCliente);
-        
+
+        // Generar ubicación automática para el cliente
+        String ubicacionCliente = Tienda.generarUbicacionCliente();
+        Cliente cliente = new Cliente(nombreCliente, tipoCliente, ubicacionCliente);
+        System.out.println("Ubicación asignada: " + ubicacionCliente);
+
         // Llenar el carrito del cliente
         System.out.println("\n═══════════════════════════════════════");
         System.out.println("      LLENAR CARRITO DEL CLIENTE");
         System.out.println("═══════════════════════════════════════");
-        
+
         String continuar;
         do {
             if (tienda.getInventario().estaVacio()) {
                 System.out.println("El inventario está vacío. No se pueden agregar productos al carrito.");
                 break;
             }
-            
+
             tienda.getInventario().mostrarInventario();
-            
+
             System.out.print("\nIngrese el nombre del producto a agregar al carrito: ");
             String nombreProducto = sc.nextLine();
-            
+
             Producto productoInventario = tienda.getInventario().buscar(nombreProducto);
-            
+
             if (productoInventario == null) {
                 System.out.println("Producto no encontrado en el inventario.");
             } else {
                 System.out.print("Ingrese la cantidad a agregar (disponible: " + productoInventario.getQuantity() + "): ");
                 int cantidad = sc.nextInt();
                 sc.nextLine();
-                
+
                 if (cantidad <= 0) {
                     System.out.println("La cantidad debe ser mayor a cero.");
                 } else if (cantidad > productoInventario.getQuantity()) {
@@ -205,7 +229,7 @@ public class Main {
                     if (productoInventario.getImagesList() != null) {
                         imagenesCopia.addAll(productoInventario.getImagesList());
                     }
-                    
+
                     // Crear una copia del producto para el carrito
                     Producto productoCarrito = new Producto(
                         productoInventario.getName(),
@@ -215,25 +239,63 @@ public class Main {
                         productoInventario.getExpirationDate(),
                         imagenesCopia
                     );
-                    
+
                     cliente.getCarrito().addToEnd(productoCarrito);
-                    
+
                     // Actualizar la cantidad en el inventario
                     productoInventario.setQuantity(productoInventario.getQuantity() - cantidad);
-                    
+
                     System.out.println("Producto agregado al carrito.");
                 }
             }
-            
+
             System.out.print("\n¿Desea agregar otro producto al carrito? (s/n): ");
             continuar = sc.nextLine();
         } while (continuar.equalsIgnoreCase("s"));
-        
+
         // Agregar cliente a la cola
         tienda.agregarCliente(cliente);
-        
+
         System.out.println("\nCliente '" + cliente.getNombre() + "' agregado a la cola con " + 
                          (cliente.getCarrito().getHead() != null ? "productos en su carrito." : "carrito vacío."));
     }
-}
 
+    // Método para agregar una ubicación al mapa
+    private static void agregarUbicacion() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("      AGREGAR UBICACIÓN AL MAPA");
+        System.out.println("═══════════════════════════════════════");
+
+        System.out.print("Ingrese el nombre de la ubicación: ");
+        String nombreUbicacion = sc.nextLine();
+
+        tienda.agregarVertice(nombreUbicacion);
+    }
+
+    // Método para agregar una conexión entre ubicaciones
+    private static void agregarConexion() {
+        System.out.println("\n═══════════════════════════════════════");
+        System.out.println("   AGREGAR CONEXIÓN ENTRE UBICACIONES");
+        System.out.println("═══════════════════════════════════════");
+
+        // Mostrar ubicaciones disponibles
+        System.out.println("\nUbicaciones disponibles:");
+        tienda.mostrarGrafoUbicaciones();
+
+        System.out.print("\nIngrese la primera ubicación: ");
+        String ubicacion1 = sc.nextLine();
+
+        System.out.print("Ingrese la segunda ubicación: ");
+        String ubicacion2 = sc.nextLine();
+
+        System.out.print("Ingrese la distancia entre las ubicaciones: ");
+        int distancia = sc.nextInt();
+        sc.nextLine();
+
+        if (distancia <= 0) {
+            System.out.println("La distancia debe ser mayor a cero.");
+        } else {
+            tienda.agregarArista(ubicacion1, ubicacion2, distancia);
+        }
+    }
+}
