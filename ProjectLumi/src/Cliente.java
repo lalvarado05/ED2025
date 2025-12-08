@@ -3,8 +3,9 @@ public class Cliente {
     private int prioridad; // 1: básico, 2: afiliado, 3: premium
     private ListaEnlazadaProductos carrito; // Lista de productos del cliente
     private Cliente siguiente; // Enlace al siguiente cliente en la cola
+    private String ubicacion; // Ubicación del cliente (vértice en el grafo)
 
-    public Cliente(String nombre, int prioridad) {
+    public Cliente(String nombre, int prioridad, String ubicacion) {
         this.nombre = nombre;
         if (prioridad >= 1 && prioridad <= 3) {
             this.prioridad = prioridad;
@@ -13,6 +14,7 @@ public class Cliente {
         }
         this.carrito = new ListaEnlazadaProductos();
         this.siguiente = null;
+        this.ubicacion = ubicacion;
     }
 
     // Getters y Setters
@@ -40,6 +42,14 @@ public class Cliente {
 
     public void setCarrito(ListaEnlazadaProductos carrito) {
         this.carrito = carrito;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     // Getters y Setters para el enlace siguiente (cola)
